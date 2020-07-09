@@ -90,7 +90,7 @@ function cd_src_repo
 function add_remote_repo
 {
   # Auto create non-existing repo
-  has_repo=`curl $DST_REPO_LIST_API?access_token=$2 | jq '.[] | select(.full_name=="'$DST_ACCOUNT'/'$1'").name' | wc -l`
+  has_repo=`curl $DST_REPO_LIST_API | jq '.[] | select(.full_name=="'$DST_ACCOUNT'/'$1'").name' | wc -l`
   if [ $has_repo == 0 ]; then
     if [[ "$DST_TYPE" == "github" ]]; then
       curl -H "Authorization: token $2" --data '{"name":"'$1'"}' $DST_REPO_CREATE_API
